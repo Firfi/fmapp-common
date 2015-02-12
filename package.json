@@ -2,7 +2,7 @@
   "name": "fmapp-common",
   "version": "0.0.0",
   "description": "",
-  "main": "cassandra.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
