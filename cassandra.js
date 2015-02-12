@@ -5,6 +5,7 @@
 var _ = require('lodash');
 var rx = require('baconjs');
 var toUnderscore = require('humps').decamelize;
+var fromUnderscore = require('humps').camelize;
 
 module.exports = (function() {
 
@@ -38,6 +39,31 @@ module.exports = (function() {
       stream.onError(console.error);
       return stream.map(function(result) {
         return result.rows;
+      });
+    },
+    executeSelect: function(query, args, opts) {
+      return execute(query, args, opts).map(function(rows) {
+        // map rows back to nice js object: {row__row: 1, row_row: 2} -> {row: {row: 1}, rowRow: 2}
+        var res = {};
+        _.map(rows, function(row) {
+          _.map(_.pairs(row), function(pair) {
+            var _k = pair[0];
+            var ks = _.map(_k.split('__'), fromUnderscore);
+            var lastKey = _.last(ks);
+            var v = pair[1];
+            var cur = res;
+            _.map(ks, function(k) {
+              if (k === lastKey) {
+                cur[k] = v;
+              } else {
+                cur[k] = cur[k] || {};
+                cur = cur[k];
+              }
+            })
+          });
+        });
+        console.warn(res);
+        return res;
       });
     },
     insert: function(o, table, cb) {
