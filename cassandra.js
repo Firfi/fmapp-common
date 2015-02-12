@@ -7,7 +7,7 @@ var rx = require('baconjs');
 var toUnderscore = require('humps').decamelize;
 var fromUnderscore = require('humps').camelize;
 
-module.exports = (function() {
+module.exports = function(ip) {
 
   var toCassandraQuery = function(log) { // {a: 'b', 'otherField': {'thirdField' : 1}} -> {a: 'b', 'other_field__third_field': 1}
     var _u = _;
@@ -31,7 +31,7 @@ module.exports = (function() {
   };
 
   var cassandra = require('cassandra-driver');
-  var client = new cassandra.Client({contactPoints: [process.env.CASSANDRA_IP], keyspace: 'demo'}); // 128.199.51.176;
+  var client = new cassandra.Client({contactPoints: [ip], keyspace: 'demo'}); // 128.199.51.176;
   var execute = client.execute;
   var api = _.extend(client, { // let's substitute callbacks to streams
     execute: function(query, args, opts) {
@@ -86,4 +86,4 @@ module.exports = (function() {
     }
   });
   return api;
-})();
+};
