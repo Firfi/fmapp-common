@@ -83,6 +83,12 @@ module.exports = function(params) {
         console.error(r);
       });
       return res;
+    },
+    utils: {
+      toQuestionString: function(list) {
+        var questionize = function(any) {return '?';};
+        return _.map(list, questionize).join(', ');
+      }
     }
   });
   return api;
