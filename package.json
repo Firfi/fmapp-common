@@ -1,0 +1,17 @@
+{
+  "name": "fmapp-common",
+  "version": "0.0.0",
+  "description": "",
+  "main": "cassandra.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "humps": "~0.4.2",
+    "baconjs": "~0.7.45",
+    "lodash": "~3.1.0",
+    "cassandra-driver": "~1.0.3"
+  }
+}
