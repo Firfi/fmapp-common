@@ -42,7 +42,7 @@ module.exports = function(params) {
       });
     },
     executeSelect: function(query, args, opts) {
-      return execute(query, args, opts).map(function(rows) {
+      return api.execute(query, args, opts).map(function(rows) {
         // map rows back to nice js object: {row__row: 1, row_row: 2} -> {row: {row: 1}, rowRow: 2}
         var res = {};
         _.map(rows, function(row) {
