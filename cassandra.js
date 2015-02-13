@@ -84,7 +84,7 @@ module.exports = function(params) {
       });
       return res;
     },
-    utils: {
+    fmappUtils: {
       toQuestionString: function(list) {
         var questionize = function(any) {return '?';};
         return _.map(list, questionize).join(', ');
